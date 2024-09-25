@@ -38,8 +38,12 @@ async function convertDocxToPdf() {
         const conversionJob = await response.json();
         console.log("Conversion job response:", conversionJob);
 
-        // Check if the conversion was successful
-        const exportUrlTask = conversionJob.data.tasks.find(task => task.name === 'export-pdf');
+        // Log all tasks for debugging
+        const tasks = conversionJob.data.tasks;
+        console.log("All tasks in the job:", tasks);
+
+        // Find the export task
+        const exportUrlTask = tasks.find(task => task.name === 'export-pdf');
         console.log("Export task details:", exportUrlTask);
 
         if (!exportUrlTask || !exportUrlTask.result || !exportUrlTask.result.files) {
